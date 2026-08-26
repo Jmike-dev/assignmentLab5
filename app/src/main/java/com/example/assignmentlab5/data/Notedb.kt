@@ -1,10 +1,11 @@
 package com.example.assignmentlab5.data
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+
+
 import androidx.room3.Database
+import androidx.room3.Room
+import androidx.room3.RoomDatabase
 
 // @Database lists every entity it manages and hands out the DAO(s).
 @Database(entities = [Note::class], version = 1)
