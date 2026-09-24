@@ -1,6 +1,5 @@
 package com.example.assignmentlab5.data
 
-
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -11,5 +10,6 @@ data class Note(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val title: String,
-    val createdAt: Long
+    val createdAt: Long,
+    val isDone: Boolean = false
 )

@@ -8,7 +8,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 // @Database lists every entity it manages and hands out the DAO(s).
-@Database(entities = [Note::class], version = 1)
+// version bumped 1 -> 2 because Note gained the isDone column.
+@Database(entities = [Note::class], version = 2)
 abstract class NoteDb : RoomDatabase() {
 
     abstract fun noteDao(): NoteDao
@@ -26,7 +27,12 @@ abstract class NoteDb : RoomDatabase() {
                     context.applicationContext,
                     NoteDb::class.java,
                     "note_database"
-                ).build().also { INSTANCE = it }
+                )
+                    // No migration written for v1 -> v2, so just rebuild the
+                    // tables from scratch instead of crashing. Fine for a
+                    // class project; wipes any notes already saved on device.
+                    .fallbackToDestructiveMigration()
+                    .build().also { INSTANCE = it }
             }
         }
     }

@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 // @Dao is the list of questions you're allowed to ask the database.
@@ -12,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 interface NoteDao {
 
     // Flow = live results, not a one-time snapshot.
-    // Any insert/delete anywhere will cause collectors of this to re-emit.
+    // Any insert/delete/update anywhere will cause collectors of this to re-emit.
     @Query("SELECT * FROM notes ORDER BY id DESC")
     fun observeAll(): Flow<List<Note>>
 
@@ -21,4 +22,9 @@ interface NoteDao {
 
     @Delete
     suspend fun remove(note: Note)
+
+    // Room matches the row by primary key (id) and overwrites the rest
+    // of the columns — this is what toggleNote() in the ViewModel calls.
+    @Update
+    suspend fun update(note: Note)
 }

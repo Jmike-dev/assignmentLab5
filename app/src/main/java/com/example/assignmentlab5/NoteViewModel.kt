@@ -30,4 +30,10 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
     fun removeNote(note: Note) = viewModelScope.launch {
         dao.remove(note)
     }
+
+    // Flips isDone on the note and persists the change. Swiping a card
+    // right in the UI calls this to mark it done / not done.
+    fun toggleNote(note: Note) = viewModelScope.launch {
+        dao.update(note.copy(isDone = !note.isDone))
+    }
 }
