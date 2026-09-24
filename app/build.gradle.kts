@@ -18,6 +18,32 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+
+        create("release") {
+
+            storeFile = file("../assignmentlab5.jks")
+
+            storePassword = "YOUR_STORE_PASSWORD"
+
+            keyAlias = "assignmentlab5"
+
+            keyPassword = "YOUR_KEY_PASSWORD"
+
+        }
+
+    }
+//
+//    buildTypes {
+//
+//        getByName("release") {
+//
+//            signingConfig = signingConfigs.getByName("release")
+//
+//        }
+//
+//    }
+
     buildTypes {
         release {
             optimization {
